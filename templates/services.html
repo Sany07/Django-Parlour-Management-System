@@ -2,7 +2,7 @@
 {% load static %}
   {% block content %}
 
-    <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg-2.jpg');" data-stellar-background-ratio="0.5">
+    <section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/bg-2.jpg' %});" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
@@ -27,16 +27,11 @@
           </div>
         </div>
             <table class="table table-bordered"> <thead> <tr> <th>#</th> <th>Service Name</th> <th>Service Price</th> </tr> </thead> <tbody>
-<?php
-$ret=mysqli_query($con,"select *from  tblservices");
-$cnt=1;
-while ($row=mysqli_fetch_array($ret)) {
-
-?>
-
-             <tr> <th scope="row"><?php echo $cnt;?></th> <td><?php  echo $row['ServiceName'];?></td> <td><?php  echo $row['Cost'];?></td> </tr>   <?php 
-$cnt=$cnt+1;
-}?></tbody> </table> 
+              {% for service in services %}		
+              <tr> <th scope="row">	</th>  <td>{{ service.ServiceName }} 	</td> <td>{{ service.Cost }}</td>
+             
+            {% endfor %}  
+            </tbody> </table> 
 			</div>
 		</section>
     <br>
