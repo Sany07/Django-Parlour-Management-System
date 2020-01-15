@@ -14,7 +14,7 @@ class Appoinment(models.Model):
     Name = models.CharField(max_length=50)
     Email = models.EmailField()
     PhoneNumber = models.CharField(max_length=11)
-    Services = models.CharField(max_length=50)
+    Service = models.CharField(max_length=50)
     Note = models.TextField()
     Remark = models.BooleanField(default=False)
     AppoinmentDate = models.DateField(default=None)

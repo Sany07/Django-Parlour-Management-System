@@ -7,7 +7,7 @@ class AppoinmentForm(forms.ModelForm):
     Name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Name'}))
     Email = forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'Email'}))
     PhoneNumber = forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'Phone Number'}))
-    Service = forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'Service'}))
+
     AppoinmentDate = forms.CharField( widget=forms.TextInput(attrs={
 
         'placeholder': 'Date',
@@ -34,4 +34,11 @@ class AppoinmentForm(forms.ModelForm):
 
         ]
 
-
+  
+    def clean_gender(self):
+        Service = self.cleaned_data.get('Service')
+  
+        if not Service:
+            raise forms.ValidationError("Service is required")
+        return Service
+    

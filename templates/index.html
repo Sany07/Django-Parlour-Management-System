@@ -78,18 +78,18 @@
 							</div>
 						{% endfor %}
 					{% endif %}
-						<form action=" " method="POST" class="appointment-form">
+						<form action="" method="POST" class="appointment-form">
 							{% csrf_token %}
 							
 							<div class="row">
 								{% for field in form %}
-								{% if field.name == 'Services' %}
+								{% if field.name == 'Service' %}
 
 								<div class="col-sm-12">
 									<div class="form-group">
 										<div class="select-wrap">
 											<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-											<select name="services" id="services" required="true" class="form-control">
+											<select name="Service" id="services" required="true" class="form-control">
 											<option selected="selected" disabled>Select Services</option>
 												<!-- <option value="">Select Services</option> -->
 											{% for service in services %}		
