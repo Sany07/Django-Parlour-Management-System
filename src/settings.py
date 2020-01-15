@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     #Our App
 
     'parlour.apps.ParlourConfig',
+    'adminsection.apps.AdminsectionConfig',
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,8 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from parlour.forms import AppoinmentForm
 from parlour.models import *
+from adminsection.models import *
+
 from django.urls import reverse
 # Create your views here.
 
@@ -12,6 +14,7 @@ def home(request):
     """
     services = Service.objects.all()
     form     = AppoinmentForm(request.POST or None)
+    s = Appoinment.objects.all()
     
   
     if request.method=='POST':
@@ -25,6 +28,7 @@ def home(request):
  
             'form':form,
             'services':services,
+            's':s
             }
     return render(request,'index.html',context)
 
@@ -46,4 +50,6 @@ def contact(request):
     return render(request,'contact.html')
 
 def thankyou(request,id):
-    return render(request,'thankyou.html')
+
+    appoinmentid = get_object_or_404(Appoinment,id=id)
+    return render(request,'thankyou.html',{'appoinment':appoinmentid})

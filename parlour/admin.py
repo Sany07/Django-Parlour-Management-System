@@ -3,7 +3,10 @@ from .models import *
 # Register your models here.
 
 
-admin.site.register(Service)
-admin.site.register(Appoinment)
-admin.site.register(Customer)
-admin.site.register(Invoice)
+
+class MyModelAdmin(admin.ModelAdmin):
+    
+    readonly_fields  = ['ApplyDate','RemarkDate']
+
+admin.site.register(Appoinment , MyModelAdmin)  
+
