@@ -1,0 +1,69 @@
+{% extends 'adminsection/base.html' %}
+{% load static %}
+{% block content %}
+<div class="cbp-spmenu-push">
+	<div class="main-content">
+		
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page login-page ">
+				<h3 class="title1">SignIn Page</h3>
+				<div class="widget-shadow">
+					<div class="login-top">
+						<h4>Welcome back to BPMS AdminPanel ! </h4>
+					</div>
+					<div class="login-body">
+												
+						<p style="font-size:16px; color:red" align="center"> 
+								
+							{% if form.errors %}
+								{% for field in form %}
+									{% for error in field.errors %}
+										<div class="alert alert-danger alert-dismissable">
+											<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+											<strong>{{ error|escape }}</strong>
+										</div>
+									{% endfor %}
+								{% endfor %}
+								{% for error in form.non_field_errors %}
+									<div class="alert alert-danger alert-dismissable">
+										<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+										<strong>{{ error|escape }}</strong>
+									</div>
+								{% endfor %}
+							{% endif %}
+							
+							</p>	
+
+					<form action="" method="post" role="form" >
+						{% csrf_token %}
+								
+							{% for field in form %}
+								<input type="{{ field.field.widget.input_type }}" class="{{ field.field.widget.attrs.class }}" name="{{ field.name }}" id="id_{{ field.name }}" placeholder="{{ field.field.widget.attrs.placeholder }}" required="true">
+							{% endfor %}
+							<input type="submit" name="login" value="Sign In">
+							<div class="forgot-grid">
+								
+								<div class="forgot">
+									<a href="../index.php">Back to Home</a>
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+							<div class="forgot-grid">
+								
+								<div class="forgot">
+									<a href="forgot-password.php">forgot password?</a>
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+						</form>
+					</div>
+				</div>
+				
+				
+			</div>
+		</div>
+		
+	</div>
+</div>
+	{% endblock %}
