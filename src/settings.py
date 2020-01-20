@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'src.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'parlourdb',                      
+        'NAME': 'dbparlour',                      
         'USER': 'postgres',
         'PASSWORD': '1234',
         'HOST': 'localhost',

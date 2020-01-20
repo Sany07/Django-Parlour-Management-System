@@ -31,3 +31,39 @@ class LoginForm(forms.Form):
 
     def get_user(self):
         return self.user
+
+
+
+class AddServiceForm(forms.ModelForm):
+    ServiceName = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Service Name',
+        'label': "Service Name"
+    }))
+    Cost = forms.CharField(strip=False,widget=forms.TextInput(attrs={
+        
+        'placeholder': 'Cost',
+        'label': "Cost"
+    }))
+    class Meta:
+
+        model=Service
+
+        fields =[
+            'ServiceName',
+            'Cost',
+        ]
+
+
+class AddCustomerForm(forms.ModelForm):
+
+    class Meta:
+
+        model=Customer
+
+        fields =[
+            'Name',
+            'Email',
+            'PhoneNumber',
+            'Gender',
+            'Note'
+        ]          

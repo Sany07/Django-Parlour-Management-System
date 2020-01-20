@@ -1,0 +1,134 @@
+{% extends 'adminsection/base.html' %}
+{% load static %}
+{% block content %}
+<!-- //header-ends -->
+<!-- main content start-->
+<div id="page-wrapper">
+  <div class="main-page">
+    <div class="tables">
+      <h3 class="title1">View Appointment</h3>
+
+
+
+      <div class="table-responsive bs-example widget-shadow">
+        <p style="font-size:16px; color:red" align="center"> <?php if($msg){
+    echo $msg;
+  }  ?> </p>
+        <h4>View Appointment:</h4>
+        <?php
+$cid=$_GET['viewid'];
+$ret=mysqli_query($con,"select * from tblappointment where ID='$cid'");
+$cnt=1;
+while ($row=mysqli_fetch_array($ret)) {
+
+?>
+        <table class="table table-bordered">
+          <tr>
+          <tr>
+            <th>Appointment Number</th>
+            <td>{{ Appoinment.id}}</td>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <td>{{ Appoinment.Name}}</td>
+
+          </tr>
+
+          <tr>
+            <th>Email</th>
+            <td>{{ Appoinment.Email }}</td>
+
+          </tr>
+          <tr>
+            <th>Mobile Number</th>
+            <td>{{ Appoinment.PhoneNumber }}</td>
+
+          </tr>
+          <tr>
+            <th>Appointment Date</th>
+            <td>{{ Appoinment.AppoinmentDate }}</td>
+
+          </tr>
+
+          <tr>
+            <th>Appointment Time</th>
+            <td>{{ Appoinment.AppoinmentTine|date:"H i A"}}</td>
+          </tr>
+
+          <tr>
+            <th>Services</th>
+            <td>{{ Appoinment.Service }}</td>
+
+          </tr>
+          <tr>
+            <th>Apply Date</th>
+            <td>{{ Appoinment.ApplyDate }}</td>
+          </tr>
+
+
+          <tr>
+            <th>Status</th>
+            <td>
+              {% if Appoinment.Remark %}
+                Selected
+              {% else %}
+                Rejected
+              {% endif %}
+            </td>
+
+          </tr>
+        </table>
+        <table class="table table-bordered">
+          <?php if($row['Remark']==""){ ?>
+
+
+          <form name="submit" method="post" enctype="multipart/form-data">
+
+            <tr>
+              <th>Remark :</th>
+              <td>
+                <textarea name="remark" placeholder="" rows="12" cols="14" class="form-control wd-450"
+                  required="true"></textarea></td>
+            </tr>
+
+            <tr>
+              <th>Status :</th>
+              <td>
+                <select name="status" class="form-control wd-450" required="true">
+                  <option value="1" selected="true">Selected</option>
+                  <option value="2">Rejected</option>
+                </select></td>
+            </tr>
+
+            <tr align="center">
+              <td colspan="2"><button type="submit" name="submit" class="btn btn-az-primary pd-x-20">Submit</button>
+              </td>
+            </tr>
+          </form>
+          <?php } else { ?>
+        </table>
+        <table class="table table-bordered">
+          <tr>
+            <th>Remark</th>
+            <td><?php echo $row['Remark']; ?></td>
+          </tr>
+
+
+          <tr>
+            <th>Remark date</th>
+            <td><?php echo $row['RemarkDate']; ?> </td>
+          </tr>
+
+        </table>
+        <?php } ?>
+        <?php } ?>
+      </div>
+    </div>
+  </div>
+</div>
+<!--footer-->
+
+<!--//footer-->
+</div>
+
+{% endblock %}

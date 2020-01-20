@@ -1,0 +1,14 @@
+{% load static %}
+
+<form action="" method="POST" class="appointment-form">
+	{% csrf_token %}
+
+	{% for field in form %}
+	<div class="form-group">
+		<label for="id_{{ field.name }}">{{ field.label }}</label>
+		<input type="{{ field.field.widget.input_type }}" class="form-control" name="{{ field.name }}"
+			id="id_{{ field.name }}" placeholder="{{ field.field.widget.attrs.placeholder }}" required="true">
+	</div>
+	{% endfor %}
+	<button type="submit" name="submit" class="btn btn-default">Add</button>
+</form>
