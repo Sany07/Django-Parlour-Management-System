@@ -52,69 +52,72 @@
 	</div>
 </section>
 <div class="form">
-<br>
-<section class="ftco-section ftco-no-pt ftco-booking">
-	<div class="container-fluid px-0">
-		<div class="row no-gutters d-md-flex justify-content-end">
-			<div class="one-forth d-flex align-items-end">
-				<div class="text">
-					<div class="overlay"></div>
-					<div class="appointment-wrap">
-						<span class="subheading">Reservation</span>
-						<h3 class="mb-2">Make an Appointment</h3>
-						{% if form.errors %}
-						{% for field in form %}
+	<br>
+	<section class="ftco-section ftco-no-pt ftco-booking">
+		<div class="container-fluid px-0">
+			<div class="row no-gutters d-md-flex justify-content-end">
+				<div class="one-forth d-flex align-items-end">
+					<div class="text">
+						<div class="overlay"></div>
+						<div class="appointment-wrap">
+							<span class="subheading">Reservation</span>
+							<h3 class="mb-2">Make an Appointment</h3>
+							{% if form.errors %}
+							{% for field in form %}
 							{% for error in field.errors %}
-								<div class="alert alert-danger alert-dismissable">
-									<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-									<strong>{{ error|escape }}</strong>
-								</div>
-							{% endfor %}
-						{% endfor %}
-						{% for error in form.non_field_errors %}
 							<div class="alert alert-danger alert-dismissable">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 								<strong>{{ error|escape }}</strong>
 							</div>
-						{% endfor %}
-					{% endif %}
-						<form action="" method="POST" class="appointment-form">
-							{% csrf_token %}
-							
-							<div class="row">
-								{% for field in form %}
-								{% if field.name == 'Service' %}
+							{% endfor %}
+							{% endfor %}
+							{% for error in form.non_field_errors %}
+							<div class="alert alert-danger alert-dismissable">
+								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+								<strong>{{ error|escape }}</strong>
+							</div>
+							{% endfor %}
+							{% endif %}
+							<form action="" method="POST" class="appointment-form">
+								{% csrf_token %}
 
-								<div class="col-sm-12">
-									<div class="form-group">
-										<div class="select-wrap">
-											<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-											<select name="Service" id="services" required="true" class="form-control">
-											<option selected="selected" disabled>Select Services</option>
-												<!-- <option value="">Select Services</option> -->
-											{% for service in services %}		
-												<option value="{{ service.ServiceName }}">
-													{{ service.ServiceName }}	
-												</option>
-											{% endfor %}
-											</select>
+								<div class="row">
+									{% for field in form %}
+									{% if field.name == 'Service' %}
+
+									<div class="col-sm-12">
+										<div class="form-group">
+											<div class="select-wrap">
+												<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+												<select name="Service" id="services" required="true"
+													class="form-control">
+													<option selected="selected" disabled>Select Services</option>
+													<!-- <option value="">Select Services</option> -->
+													{% for service in services %}
+													<option value="{{ service.ServiceName }}">
+														{{ service.ServiceName }}
+													</option>
+													{% endfor %}
+												</select>
+											</div>
 										</div>
 									</div>
-								</div>
-		
-							{% else %}
-								<div class="col-sm-12">
-									<div class="form-group">
-										<input type="{{ field.field.widget.input_type }}" class="form-control {{ field.field.widget.attrs.class }}"
-											name="{{ field.name }}" id="id_{{ field.name }}"
-											placeholder="{{ field.field.widget.attrs.placeholder }}" required="true">
 
+									{% else %}
+									<div class="col-sm-12">
+										<div class="form-group">
+											<input type="{{ field.field.widget.input_type }}"
+												class="form-control {{ field.field.widget.attrs.class }}"
+												name="{{ field.name }}" id="id_{{ field.name }}"
+												placeholder="{{ field.field.widget.attrs.placeholder }}"
+												required="true">
+
+										</div>
 									</div>
-								</div>
-								{% endif %}
-							{% endfor %}
-	
-								<!-- <div class="col-sm-12">
+									{% endif %}
+									{% endfor %}
+
+									<!-- <div class="col-sm-12">
 									<div class="form-group">
 										<input type="email" class="form-control" id="appointment_email"
 											placeholder="Email" name="email" required="true">
@@ -153,31 +156,32 @@
 									</div>
 								</div> -->
 
-							</div>
-							<div class="form-group">
-								<input type="submit" name="submit" value="Make an Appointment" class="btn btn-primary">
-							</div>
-						</form>
+								</div>
+								<div class="form-group">
+									<input type="submit" name="submit" value="Make an Appointment"
+										class="btn btn-primary">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="one-third">
+					<div class="img" style="background-image: url({% static 'images/bg-1.jpg' %});">
 					</div>
 				</div>
 			</div>
-			<div class="one-third">
-				<div class="img" style="background-image: url({% static 'images/bg-1.jpg' %});">
-				</div>
-			</div>
 		</div>
-	</div>
-</section>
+	</section>
 
 
-<br>
+	<br>
 
 
-<!-- loader -->
-<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
-		<circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
-		<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-			stroke="#F96D00" /></svg></div>
+	<!-- loader -->
+	<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+			<circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+			<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+				stroke="#F96D00" /></svg></div>
 
 
-{% endblock %}
+	{% endblock %}

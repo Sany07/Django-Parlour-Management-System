@@ -18,11 +18,7 @@
       <div class="header-right">
         <div class="profile_details_left"><!--notifications of menu start -->
           <ul class="nofitications-dropdown">
-            <?php
-$ret1=mysqli_query($con,"select ID,Name from  tblappointment where Status=''");
-$num=mysqli_num_rows($ret1);
 
-?>  
             <li class="dropdown head-dpdn">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue"><?php echo $num;?></span></a>
               
@@ -35,15 +31,11 @@ $num=mysqli_num_rows($ret1);
                 <li>
             
                    <div class="notification_desc">
-                     <?php if($num>0){
-while($result=mysqli_fetch_array($ret1))
-{
-            ?>
+
                  <a class="dropdown-item" href="view-appointment.php?viewid=<?php echo $result['ID'];?>">New appointment received from <?php echo $result['Name'];?> </a><br />
-<?php }} else {?>
+
     <a class="dropdown-item" href="all-appointment.php">No New Appointment Received</a>
-        <?php } ?>
-                           
+      
                   </div>
                   <div class="clearfix"></div>  
                  </a></li>
@@ -62,13 +54,6 @@ while($result=mysqli_fetch_array($ret1))
         </div>
         <!--notification menu end -->
         <div class="profile_details">  
-        <?php
-$adid=$_SESSION['bpmsaid'];
-$ret=mysqli_query($con,"select AdminName from tbladmin where ID='$adid'");
-$row=mysqli_fetch_array($ret);
-$name=$row['AdminName'];
-
-?> 
           <ul>
             <li class="dropdown profile_details_drop">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

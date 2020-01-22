@@ -1,0 +1,38 @@
+{% extends 'adminsection/base.html' %}
+{% load static %}
+{% block content %}
+
+<div id="page-wrapper">
+	<div class="main-page">
+		<div class="tables">
+			<h3 class="title1">Manage Services</h3>
+			<div class="table-responsive bs-example widget-shadow">
+				<h4>Update Services:</h4>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Service Name</th>
+							<th>Service Price</th>
+							<th>Creation Date</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						{% for service in Services %}
+							<tr>
+								<th scope="row">{{ forloop.counter }}</th>
+								<td>{{ service.ServiceName}}</td>
+								<td>{{ service.Cost}}</td>
+								<td>{{ service.TimeStamp}}</td>
+								<td><a href="{% url 'updateservice' service.id %}">Edit</a></td>
+							</tr> 
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

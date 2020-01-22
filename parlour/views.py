@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from parlour.forms import AppoinmentForm
 from parlour.models import *
-from adminsection.models import *
+from adminsection.models import Service
 
 from django.urls import reverse
 # Create your views here.
@@ -14,9 +14,7 @@ def home(request):
     """
     services = Service.objects.all()
     form     = AppoinmentForm(request.POST or None)
-    s = Appoinment.objects.all()
-    
-  
+      
     if request.method=='POST':
         if form.is_valid():
             instance=form.save(commit=False)
@@ -28,7 +26,6 @@ def home(request):
  
             'form':form,
             'services':services,
-            's':s
             }
     return render(request,'index.html',context)
 

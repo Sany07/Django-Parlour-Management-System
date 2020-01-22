@@ -1,0 +1,49 @@
+{% extends 'adminsection/base.html' %}
+{% load static %}
+{% block content %}
+<!-- //header-ends -->
+<!-- main content start-->
+<div id="page-wrapper">
+	<div class="main-page">
+		<div class="tables">
+			<h3 class="title1">All Appointment</h3>
+
+
+
+			<div class="table-responsive bs-example widget-shadow">
+				<h4>All Appointment:</h4>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th> Appointment Number</th>
+							<th>Name</th>
+							<th>Mobile Number</th>
+							<th>Appointment Date</th>
+							<th>Appointment Time</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for list in Appoinments %}
+
+						<tr>
+							<th scope="row">{{ forloop.counter }}</th>
+							<td>{{ list.id}}</td>
+							<td>{{ list.Name}}</td>
+							<td>{{ list.PhoneNumber}}</td>t
+							<td>{{ list.AppoinmentDate}}</td>
+							<td>{{ list.AppoinmentTine|date:"H i A"}}</td>
+							<td><a href="{% url 'viewappointment' list.id %}">Edit</a></td>
+						</td>
+						</tr> 
+						{% endfor %}
+					
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -4,9 +4,11 @@ from django.db import models
 class Service(models.Model):
     ServiceName = models.CharField(max_length=25)
     Cost = models.PositiveIntegerField()
+    TimeStamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.ServiceName
+        
 class Customer(models.Model):
     Name = models.CharField(max_length=50)
     Email = models.EmailField()
