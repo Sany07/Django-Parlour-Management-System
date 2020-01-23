@@ -6,41 +6,42 @@
 <div id="page-wrapper">
 	<div class="main-page">
 		<div class="tables">
-			<h3 class="title1">All Appointment</h3>
+			<h3 class="title1">Customer List</h3>
+
+
+
 			<div class="table-responsive bs-example widget-shadow">
-				<h4>All Appointment:</h4>
+				<h4>Customer List:</h4>
 				<table class="table table-bordered">
 					<thead>
 						<tr>
 							<th>#</th>
-							<th> Appointment Number</th>
 							<th>Name</th>
-							<th>Mobile Number</th>
-							<th>Appointment Date</th>
-							<th>Appointment Time</th>
+							<th>Mobile</th>
+							<th>Creation Date</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
-						{% for list in Rejectedtedappoinments %}
-
+						{% for list in CustomerList %}
 						<tr>
 							<th scope="row">{{ forloop.counter }}</th>
-							<td>{{ list.id}}</td>
 							<td>{{ list.Name}}</td>
 							<td>{{ list.PhoneNumber}}</td>
-							<td>{{ list.AppoinmentDate}}</td>
-							<td>{{ list.AppoinmentTine|date:"H i A"}}</td>
-							<td><a href="{% url 'viewappointment' list.id %}">View</a></td>
-						</td>
+							<td>{{ list.CreateDate}}</td>
+							<td><a href="{% url 'editcustomer' list.id %}">Edit</a> || <a
+									href="{% url 'assignservices' list.id %}">Assign Services</a>
+							</td>
 						</tr> 
 						{% endfor %}
-					
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
 </div>
+<!--footer-->
 
+<!--//footer-->
+</div>
 {% endblock %}

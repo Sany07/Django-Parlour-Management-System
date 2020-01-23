@@ -13,7 +13,11 @@ class Customer(models.Model):
     Name = models.CharField(max_length=50)
     Email = models.EmailField()
     PhoneNumber = models.CharField(max_length=11)
-    Gender = models.CharField(max_length=11)
+    GENDER_CHOICES = (
+        ('0', 'Male'),
+        ('1', 'Female'),
+    )
+    Gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     Note = models.TextField()
     CreateDate = models.DateTimeField(auto_now_add=True)
     UpdateDate = models.DateTimeField(auto_now=True)

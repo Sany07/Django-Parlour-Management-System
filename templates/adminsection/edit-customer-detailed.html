@@ -1,7 +1,7 @@
 {% extends 'adminsection/base.html' %}
 {% load static %}
 {% block content %}
-
+<!-- //header-ends -->
 <!-- main content start-->
 <div id="page-wrapper">
 	<div class="main-page">
@@ -9,16 +9,14 @@
 			<h3 class="title1">Update Services</h3>
 			<div class="form-grids row widget-shadow" data-example-id="basic-forms">
 				<div class="form-title">
-					<h4>Parlour Services:</h4>
+					<h4>Update Parlour Services:</h4>
 				</div>
 				<div class="form-body">
-					{% include 'adminsection/includes/edit-form.html' with form=form %}
+					{% include 'adminsection/includes/edit-form.html' with form=form %}	
 				</div>
-
 			</div>
-
-
 		</div>
 	</div>
-
-	{% endblock %}
+	<!-- <?php include_once('includes/footer.php');?> -->
+</div>
+{% endblock %}

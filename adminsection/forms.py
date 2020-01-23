@@ -1,4 +1,5 @@
 from django import forms
+from parlour.models import *
 from adminsection.models import *
 from django.contrib.auth import authenticate
 
@@ -56,10 +57,16 @@ class AddServiceForm(forms.ModelForm):
 
 class AddCustomerForm(forms.ModelForm):
 
+    Name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Name'}))
+    Email = forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'Email'}))
+    PhoneNumber = forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'Phone Number'}))
+    Note = forms.CharField( widget=forms.Textarea(attrs={'placeholder': 'Note'}))
+
+
+
     class Meta:
 
         model=Customer
-
         fields =[
             'Name',
             'Email',
@@ -67,3 +74,37 @@ class AddCustomerForm(forms.ModelForm):
             'Gender',
             'Note'
         ]          
+
+    def clean_gender(self):
+        Gender = self.cleaned_data.get('Gender')
+        if not Gender:
+            raise forms.ValidationError("Gender required")
+        return Gender        
+    
+    def clean_details(self):
+        Note = self.cleaned_data.get('Note')
+        if not Note:
+            raise forms.ValidationError("Note required")
+        return Note    
+
+class AppoinmentUpdateForm(forms.ModelForm):
+
+    Note = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter Note If needed'}))
+
+    class Meta:
+
+        model=Appoinment
+        fields =[
+            'Note',
+            'Remark',
+
+        ]
+
+  
+    def clean_remark(self):
+        Remark = self.cleaned_data.get('Remark')
+  
+        if not Remark:
+            raise forms.ValidationError("Remark is required")
+        return Remark
+    

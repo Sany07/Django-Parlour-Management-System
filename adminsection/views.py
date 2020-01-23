@@ -32,22 +32,6 @@ def signin(request):
 def dashboard(request):
     return render(request,'adminsection/dashboard.html')
     
-
-    
-def addcustomer(request):
-
-    form     = AddCustomerForm(request.POST or None)
-    if request.method=='POST':
-        if form.is_valid():
-            form.save()
-            
-
-    context={
-            'form':form
-        }
-    return render(request,'adminsection/add-customer.html',context)
-
-
 def addservice(request):
 
     form     = AddServiceForm(request.POST or None)
@@ -89,9 +73,71 @@ def updateservice(request,id):
     }
     return render(request,'adminsection/edit-services.html',context)
 
+
+
+def addcustomer(request):
+
+    form     = AddCustomerForm(request.POST or None)
+
+    if request.method=='POST':
+        if form.is_valid():
+            form.save()
+            return redirect('customerlist')
+    context={
+ 
+            'form':form,
+            }
+    return render(request,'adminsection/add-customer.html',context)
+
+
 def customerlist(request):
-    return render(request,'adminsection/customer-list.html')
+
+    CustomerList = Customer.objects.order_by('-CreateDate')
+
+    context={
+        'CustomerList':CustomerList
+    }
+    return render(request,'adminsection/customer-list.html',context)
+
+def editcustomer(request,id):
     
+    customer=get_object_or_404(Customer,id=id)
+    form     = AddCustomerForm(request.POST or None , instance=customer)
+ 
+    if request.method=='POST':
+        if form.is_valid():
+            form.save()
+            return redirect('customerlist')
+
+    context={
+        'form':form
+    }
+    return render(request,'adminsection/edit-customer-detailed.html',context)
+
+def assignservices(request , id):
+    
+    customer=get_object_or_404(Customer,id=id)
+    # customer=Customer.objects.values('id').get(id=id)
+    Services=Service.objects.order_by('-TimeStamp')
+    if request.method=='POST':
+
+        cs= request.POST.getlist('serviceid')  
+
+        
+        a1=Invoice(Note="hello")
+        
+        a1.Customer=customer
+        a1.save()
+        for i in cs:
+            a1.Catagories.add(i)
+    context={
+            'Services':Services ,
+            'customer':customer
+        }
+
+    return render(request,'adminsection/add-customer-services.html',context)
+ 
+   
 def bwdatesreportsds(request):
     return render(request,'adminsection/bwdates-reports-ds.html')
     
@@ -109,18 +155,44 @@ def allappointment(request):
 def viewappointment(request,id):
     
     Appoinments=get_object_or_404(Appoinment,id=id)
+    form     = AppoinmentUpdateForm(request.POST or None , instance=Appoinments)
+    
+    if request.method=='POST':
+        if form.is_valid():
+            form.save()
+            # return redirect('manageservices')
     context={
-        'Appoinment':Appoinments
+        'Appoinment':Appoinments,
+        'form':form
     }
     return render(request,'adminsection/view-appointment.html',context)
 
     
 def newappointment(request):
-    return render(request,'adminsection/new-appointment.html')
+
+    Acceptedappoinments = Appoinment.objects.filter(Remark='')
+    context={
+        'Acceptedappoinments':Acceptedappoinments,
+    }
+    return render(request,'adminsection/new-appointment.html',context)
     
 def acceptedappointment(request):
-    return render(request,'adminsection/accepted-appointment.html')
-    
+
+    Acceptedappoinments = Appoinment.objects.filter(Remark=1)
+
+    context={
+        'Acceptedappoinments':Acceptedappoinments,
+    }
+    return render(request,'adminsection/accepted-appointment.html',context)
+
+def rejectedappointment(request):
+    Rejectedtedappoinments = Appoinment.objects.filter(Remark=0)
+
+    context={
+        'Rejectedtedappoinments':Rejectedtedappoinments,
+    }
+    return render(request,'adminsection/rejected-appointment.html',context)   
+
 def invoices(request):
     return render(request,'adminsection/invoices.html')
     
