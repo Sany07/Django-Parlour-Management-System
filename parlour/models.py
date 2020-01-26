@@ -11,7 +11,6 @@ class Appoinment(models.Model):
     PhoneNumber = models.CharField(max_length=11)
     Service = models.CharField(max_length=50)
     Note = models.TextField()
-    # Remark = models.BooleanField(default=False)
     AppoinmentDate = models.DateField()
     AppoinmentTine = models.TimeField()  
     ApplyDate = models.DateTimeField(auto_now_add=True)

@@ -57,16 +57,23 @@
           <ul>
             <li class="dropdown profile_details_drop">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                {% if request.user.is_authenticated %}
                 <div class="profile_img"> 
-                  <span class="prfil-img"><img src="images/download (1).png" alt="" width="50" height="60"> </span> 
                   <div class="user-name">
-                    <p><?php echo $name; ?></p>
-                    <span>Administrator</span>
+                    <p>{{ user.username }}</p>
+                    {% if request.user.is_superuser %}
+                    
+                      <span>Administrator </span>
+                    {% else %}
+
+                    `<span>Staff</span>
+                    {% endif %}  
                   </div>
                   <i class="fa fa-angle-down lnr"></i>
                   <i class="fa fa-angle-up lnr"></i>
                   <div class="clearfix"></div>  
                 </div>  
+                {% endif %}
               </a>
               <ul class="dropdown-menu drp-mnu">
                 <li> <a href="change-password.php"><i class="fa fa-cog"></i> Settings</a> </li> 

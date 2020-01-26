@@ -11,7 +11,7 @@
 				<h4>Assign Services:</h4>
 				<form action="" method="POST" >
 					{% csrf_token %}
-					<h2 id="total"></h2>
+					
 					<table class="table table-bordered">
 						<thead>
 							<tr>
@@ -37,12 +37,25 @@
 						{% endfor %}
 
 							<tr>
-								<td colspan="4" align="center">
+								<th>
+									<h2>Total</h2>
+								</th>
+								<th>
+									<h2 id="total"></h2>   
+									<!-- <input type="text" id="total" name="total_price"> -->
+								</th>
+								<th>
+
+									<input type="text" name="discount_price" placeholder="e.g: 100" class="form-control">
+								</th>
+							</tr>
+							<tr>
+								<td colspan="5" align="center">
 									<button type="submit" name="submit" class="btn btn-default">Submit</button>
 								</td>
 
 							</tr>
-
+							
 						</tbody>
 					</table>
 				</form>
@@ -65,7 +78,7 @@
 			   });
 
    {% endfor %}
-   
+   var x = document.createElement("INPUT");
    function check() {
    
    var add = 0;  
@@ -76,8 +89,16 @@
    {% endfor %}
 
    var p = add;
-   var price = p + ' USD'; 
-   document.getElementById('total').innerHTML = price;  
+   var price = p ; 
+//    document.getElementById('total').innerHTML = price;  
+
+  	
+ 	x.setAttribute("name", "total_price");
+  	x.setAttribute("value", price);
+  	// x.setAttribute("disabled" , "");
+  
+  	document.getElementById("total").appendChild(x);
+
    }
    
    check();

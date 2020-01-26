@@ -1,10 +1,12 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from adminsection.forms import *
 from adminsection.models import *
+from parlour.models import Appoinment
 from django.contrib import auth
 from django.urls import reverse
-
-from parlour.models import Appoinment
+from django.db.models import Q
+from django.db.models import Sum
+from datetime import date , timedelta
 
 # Create your views here.
 
@@ -30,7 +32,33 @@ def signin(request):
 
 
 def dashboard(request):
-    return render(request,'adminsection/dashboard.html')
+
+    total_appoinment = Appoinment.objects.all().count()
+    total_accepted_appoinment = Appoinment.objects.filter(Remark = 1).count()
+    total_Rejected_appoinment = Appoinment.objects.filter(Remark = 2).count()
+    total_service = Service.objects.all().count()
+    total_customer = Customer.objects.all().count()
+    total_sales = Invoice.objects.values('Catagories__Cost').aggregate(Sum('Catagories__Cost'))
+    today_sales = Invoice.objects.filter(Date__date=date.today()).aggregate(Sum('Catagories__Cost'))
+    yesterday_sales = Invoice.objects.filter(Date__date=date.today()- timedelta(days=1)).aggregate(Sum('Catagories__Cost'))
+    last_seven_days_sales = Invoice.objects.filter(Date__gte=date.today()- timedelta(days=7)).aggregate(Sum('Catagories__Cost'))
+    # .values('Catagories__Cost').aggregate(Sum('Catagories__Cost'))
+    print(today_sales)
+    # Invoice.objects.all().aggregate(Sum('Catagories.Cost'))
+
+    context={
+            'total_appoinment':total_appoinment,
+            'total_accepted_appoinment':total_accepted_appoinment,
+            'total_Rejected_appoinment':total_Rejected_appoinment,
+            'total_service':total_service,
+            'total_customer':total_customer,
+            'total_sales':total_sales,
+            'today_sales':today_sales,
+            'yesterday_sales':yesterday_sales,
+            'last_seven_days_sales':last_seven_days_sales
+            
+        }
+    return render(request,'adminsection/dashboard.html',context)
     
 def addservice(request):
 
@@ -117,19 +145,26 @@ def editcustomer(request,id):
 def assignservices(request , id):
     
     customer=get_object_or_404(Customer,id=id)
-    # customer=Customer.objects.values('id').get(id=id)
     Services=Service.objects.order_by('-TimeStamp')
+
     if request.method=='POST':
-
-        cs= request.POST.getlist('serviceid')  
-
+        total_price=request.POST['total_price']
+        discount_price=request.POST['discount_price']
+        serviceid= request.POST.getlist('serviceid')
         
-        a1=Invoice(Note="hello")
-        
+        if discount_price:
+            final_price=int(total_price)-int(discount_price)  
+            a1=Invoice(Note=final_price)
+            
+        else:
+            a1=Invoice()
+            
         a1.Customer=customer
         a1.save()
-        for i in cs:
-            a1.Catagories.add(i)
+        for obj in serviceid:
+            a1.Catagories.add(obj)
+                
+        return redirect('invoices')    
     context={
             'Services':Services ,
             'customer':customer
@@ -137,12 +172,7 @@ def assignservices(request , id):
 
     return render(request,'adminsection/add-customer-services.html',context)
  
-   
-def bwdatesreportsds(request):
-    return render(request,'adminsection/bwdates-reports-ds.html')
-    
-def salesreports(request):
-    return render(request,'adminsection/sales-reports.html')
+
     
    
 def allappointment(request):
@@ -194,19 +224,63 @@ def rejectedappointment(request):
     return render(request,'adminsection/rejected-appointment.html',context)   
 
 def invoices(request):
-    return render(request,'adminsection/invoices.html')
+
+    invoices = Invoice.objects.order_by('-id')
+
+    context={
+        'invoices':invoices
+    }
+    return render(request,'adminsection/invoices.html',context)
+
+
+def viewinvoice(request,id):
+    invoice = get_object_or_404(Invoice,id=id)
+    total = Invoice.objects.filter(id=id).aggregate(Sum('Catagories__Cost'))
+
     
+    context={
+        'invoice':invoice ,
+        'total':total
+    }
+    return render(request,'adminsection/view-invoice.html',context)
+
+
 def searchappointment(request):
+
+    
     return render(request,'adminsection/search-appointment.html')
     
 def searchinvoices(request):
-    return render(request,'adminsection/search-invoices.html')
-    
 
+    query= request.GET.get('searchdata')
 
-# def dashboard(request):
-#     return render(request,'adminsection/dashboard.html')
+    invoice =Invoice.objects.filter(BillingNumber=query)
+
+    context={
+        'invoice':invoice
+    }
+    return render(request,'adminsection/search-invoices.html',context)
     
-# def dashboard(request):
-#     return render(request,'adminsection/dashboard.html')
+   
+def bwdatesreportsds(request):
+    return render(request,'adminsection/bwdates-reports-ds.html')
+    
+def salesreports(request):
+    return render(request,'adminsection/sales-reports.html')
+
+def profile(request):
+    return render(request,'adminsection/admin-profile.html')
+    
+def changepassword(request):
+    return render(request,'adminsection/change-password.html')
+
+def forgetpassword(request):
+    return render(request,'adminsection/forget-password.html')
+     
+def contactus(request):
+    return render(request,'adminsection/contact-us.html')
+
+def logout(request):
+    pass
+    
     
