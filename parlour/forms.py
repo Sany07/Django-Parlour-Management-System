@@ -35,7 +35,7 @@ class AppoinmentForm(forms.ModelForm):
         ]
 
   
-    def clean_gender(self):
+    def clean_service(self):
         Service = self.cleaned_data.get('Service')
   
         if not Service:

@@ -7,21 +7,10 @@
   <div class="main-page">
     <div class="tables">
       <h3 class="title1">View Appointment</h3>
-
-
-
       <div class="table-responsive bs-example widget-shadow">
-        <p style="font-size:16px; color:red" align="center"> <?php if($msg){
-    echo $msg;
-  }  ?> </p>
+        <p style="font-size:16px; color:red" align="center"> </p>
         <h4>View Appointment:</h4>
-        <?php
-$cid=$_GET['viewid'];
-$ret=mysqli_query($con,"select * from tblappointment where ID='$cid'");
-$cnt=1;
-while ($row=mysqli_fetch_array($ret)) {
 
-?>
         <table class="table table-bordered">
           <tr>
           <tr>
@@ -70,58 +59,71 @@ while ($row=mysqli_fetch_array($ret)) {
             <th>Status</th>
             <td>
               {% if Appoinment.Remark %}
-                Selected
+              {% if Appoinment.Remark == '1' %}
+              Accected
               {% else %}
-                Rejected
+              Rejected
+              {% endif %}
+              {% else %}
+              Not Confirm
               {% endif %}
             </td>
 
           </tr>
         </table>
         <table class="table table-bordered">
-          <?php if($row['Remark']==""){ ?>
+          {% if not Appoinment.Remark %}
+          <form name="submit" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
 
-
-          <form name="submit" method="post" enctype="multipart/form-data">
-
-            <tr>
-              <th>Remark :</th>
-              <td>
-                <textarea name="remark" placeholder="" rows="12" cols="14" class="form-control wd-450"
-                  required="true"></textarea></td>
-            </tr>
-
+            {% for field in form %}
+            {% if field.name == 'Remark' %}
             <tr>
               <th>Status :</th>
               <td>
-                <select name="status" class="form-control wd-450" required="true">
+                <select name="Remark" class="form-control wd-450" required="true">
                   <option value="1" selected="true">Selected</option>
-                  <option value="2">Rejected</option>
-                </select></td>
+                  <option value="0">Rejected</option>
+                </select>
+              </td>
             </tr>
+            {% else %}
+
+            <tr>
+              <th>Note :</th>
+              <td>
+
+                <textarea name="{{ field.name }}" placeholder="{{ field.field.widget.attrs.placeholder }}" rows="12"
+                  cols="14" class="form-control wd-450"></textarea>
+
+              </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
 
             <tr align="center">
               <td colspan="2"><button type="submit" name="submit" class="btn btn-az-primary pd-x-20">Submit</button>
               </td>
             </tr>
           </form>
-          <?php } else { ?>
+
         </table>
+        {% endif %}
+        {% if Appoinment.Remark %}
         <table class="table table-bordered">
           <tr>
             <th>Remark</th>
-            <td><?php echo $row['Remark']; ?></td>
+            <td>{{ Appoinment.Note }}</td>
           </tr>
 
 
           <tr>
             <th>Remark date</th>
-            <td><?php echo $row['RemarkDate']; ?> </td>
+            <td>{{ Appoinment.RemarkDate }} </td>
           </tr>
 
         </table>
-        <?php } ?>
-        <?php } ?>
+        {% endif %}
       </div>
     </div>
   </div>

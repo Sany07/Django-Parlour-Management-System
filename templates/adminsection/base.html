@@ -6,13 +6,15 @@
         <div class="main-content">
                 {% include 'adminsection/includes/sidebar.html' %}
                 {% include 'adminsection/includes/header.html' %}
-                {% block content %}
 
-                {% endblock %}
+                        {% block content %}
 
+                        {% endblock %}
 
                 {% include 'adminsection/scripts.html' %}
-	</div>
+        </div>
+                {% include 'adminsection/includes/footer.html' %}
+        
 </body>
 
 </html>
