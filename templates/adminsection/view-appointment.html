@@ -46,8 +46,9 @@
 
           <tr>
             <th>Services</th>
-            <td>{{ Appoinment.Service }}</td>
-
+            <td>{% for service in Appoinment.Service.all %}
+           {{ service.ServiceName }}
+            {% endfor %}</td>
           </tr>
           <tr>
             <th>Apply Date</th>
@@ -59,13 +60,13 @@
             <th>Status</th>
             <td>
               {% if Appoinment.Remark %}
-              {% if Appoinment.Remark == '1' %}
-              Accected
+                {% if Appoinment.Remark == '1' %}
+                     Accected
+                {% else %}
+                    Rejected
+                {% endif %}
               {% else %}
-              Rejected
-              {% endif %}
-              {% else %}
-              Not Confirm
+                  Not Confirm
               {% endif %}
             </td>
 

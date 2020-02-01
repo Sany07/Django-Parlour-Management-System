@@ -20,6 +20,8 @@ class AppoinmentForm(forms.ModelForm):
         'placeholder': 'Time ',
         'class':'appointment_time'
     }))
+    
+
 
     class Meta:
 

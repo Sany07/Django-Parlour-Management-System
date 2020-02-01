@@ -8850,7 +8850,11 @@ h1, h2, h3, h4, h5,
     -ms-border-radius: 0;
     border-radius: 0; }
     .appointment-form .form-group input option, .appointment-form .form-group select option {
-      color: #563b4c; }
+      
+      color: #563b4c; 
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 27px 0px;
+    }
     .appointment-form .form-group input::-webkit-input-placeholder, .appointment-form .form-group select::-webkit-input-placeholder {
       /* Chrome/Opera/Safari */
       color: #563b4c !important; }

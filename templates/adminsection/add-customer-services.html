@@ -17,7 +17,7 @@
 							<tr>
 								<th>#</th>
 								<th>Service Name</th>
-								<th>Ouantity</th>
+								<!-- <th>Ouantity</th> -->
 								<th>Service Price</th>
 								<th>Action</th>
 							</tr>
@@ -28,7 +28,7 @@
 							<tr>
 								<th scope="row">{{ forloop.counter }}</th>
 								<td><input type="hidden" name="customerid" value="{{ customer.id }}"/>{{ o.ServiceName}}</td>
-								<td><input type="text" name="q_{{ o.id }}" id="q_{{ o.id }}"  value="1"  onchange="check()" disabled /></td>
+								<!-- <td><input type="text" name="q_{{ o.id }}" id="q_{{ o.id }}"  value="1"  onchange="check()" disabled /></td> -->
 								<td>
 									<input type="text" name="cost" id="cost_{{ o.id }}" value="{{ o.Cost }}" disabled/>
 								</td>
@@ -42,12 +42,11 @@
 								</th>
 								<th>
 									<h2 id="total"></h2>   
-									<!-- <input type="text" id="total" name="total_price"> -->
 								</th>
-								<th>
+								<!-- <th>
 
 									<input type="text" name="discount_price" placeholder="e.g: 100" class="form-control">
-								</th>
+								</th> -->
 							</tr>
 							<tr>
 								<td colspan="5" align="center">
@@ -64,7 +63,6 @@
 	</div>
 </div>
 <!--footer-->
-<!-- <?php include_once('includes/footer.php');?> -->
 <!--//footer-->
 </div>
 <script> 
@@ -74,7 +72,7 @@
 			   $('#checkbox_{{ o.id }}').click(function() {
 			   var cb{{ o.id }} = $('#checkbox_{{ o.id }}').is(':checked');
 		   
-			   $('#q_{{ o.id }}').prop('disabled', !(cb{{ o.id }}));
+			//    $('#q_{{ o.id }}').prop('disabled', !(cb{{ o.id }}));
 			   });
 
    {% endfor %}
@@ -82,22 +80,24 @@
    function check() {
    
    var add = 0;  
+   var a = 1;  
    {% for o in Services  %}
 	   if(document.getElementById('checkbox_{{ o.id }}').checked) {
-	   add += document.getElementById('cost_{{ o.id }}').value * document.getElementById('q_{{ o.id }}').value;
+	   add += document.getElementById('cost_{{ o.id }}').value * a
+	//    * document.getElementById('q_{{ o.id }}').value;
 	   }  
    {% endfor %}
 
    var p = add;
    var price = p ; 
-//    document.getElementById('total').innerHTML = price;  
+   document.getElementById('total').innerHTML = price;  
 
   	
- 	x.setAttribute("name", "total_price");
-  	x.setAttribute("value", price);
-  	// x.setAttribute("disabled" , "");
+ 	// x.setAttribute("name", "total_price");
+  	// x.setAttribute("value", price);
+  	// // x.setAttribute("disabled" , "");
   
-  	document.getElementById("total").appendChild(x);
+  	// document.getElementById("total").appendChild(x);
 
    }
    

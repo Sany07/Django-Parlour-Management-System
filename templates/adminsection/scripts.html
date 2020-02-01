@@ -20,10 +20,20 @@
                 classie.toggle( showLeftPush, 'disabled' );
             }
         }
+
+    $('.form-control1').datepicker({
+	 'format': 'yyyy-m-d',
+	 'autoclose': true
+   });
+
     </script>
 <!--scrolling js-->
 <script src="{% static 'adminsection/js/jquery.nicescroll.js' %}"></script>
 <script src="{% static 'adminsection/js/scripts.js' %}"></script>
+
+
 <!--//scrolling js-->
 <!-- Bootstrap Core JavaScript -->
 <script src="{% static 'adminsection/js/bootstrap.js' %}"> </script>
+
+<script src="{% static 'js/bootstrap-datepicker.js' %}"></script>

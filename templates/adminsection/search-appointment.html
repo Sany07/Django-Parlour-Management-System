@@ -12,22 +12,20 @@
 				<div class="form-body">
 					<form method="GET" name="search" action="">
 		
-						<p style="font-size:16px; color:red" align="center"> 
-						
-						
+						<p style="font-size:16px; color:red" align="center"> 	
 						
 						</p>
 
 						<div class="form-group"> <label for="exampleInputEmail1">Search by Appointment Number</label>
-							<input id="searchdata" type="text" name="text" required="true" class="form-control">
+							<input id="searchdata" type="text" name="searchdata" required="true" class="form-control">
 
 							<br>
 							<button type="submit" name="search" class="btn btn-primary btn-sm">Search</button>
 					</form>
 				</div>
 
-				<!-- {% if appointment %} -->
-				<h4 align="center">Result against "<?php echo $sdata;?>" keyword </h4>
+				{% if appointment_list %}
+				<h4 align="center">Result against "{{ query }}" keyword </h4>
 
 				<table class="table table-bordered">
 					<thead>
@@ -44,23 +42,24 @@
 					<tbody>
 						{% for appointment in appointment_list %}
 						<tr>
-							<th scope="row"><?php echo $cnt;?></th>
-							<td>{{ appointment.id }}</td>
+							<th scope="row">{{ forloop.counter }}</th>
+							<td>{{ appointment.AppointmentNumber }}</td>
 							<td>{{ appointment.Name }}</td>
 							<td>{{ appointment.PhoneNumber }}</td>
 							<td>{{ appointment.AppoinmentDate }}</td>
 							<td>{{ appointment.AppoinmentTine }}</td>
-							<td><a href="view-appointment.php?viewid=<?php echo $row['ID'];?>">View</a></td>
+							<td><a href="{% url 'viewappointment' appointment.id %}">View</a></td>
 						</tr>
 
 						{% endfor %}
-					<!-- {% else %} -->
+					{% else %}
+					{% if query %}
 					<tr>
 						<td colspan="8"> No record found against this search</td>
 
 					</tr>
-<!-- 
-					{% endif %} -->
+					{% endif %} 
+					{% endif %} 
    
 
 					</tbody>
@@ -70,7 +69,6 @@
 	</div>
 </div>
 <!--footer-->
-<!-- <?php include_once('includes/footer.php');?> -->
 <!--//footer-->
 </div>
 {% endblock %}

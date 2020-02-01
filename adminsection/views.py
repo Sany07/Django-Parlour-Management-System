@@ -35,16 +35,14 @@ def dashboard(request):
 
     total_appoinment = Appoinment.objects.all().count()
     total_accepted_appoinment = Appoinment.objects.filter(Remark = 1).count()
-    total_Rejected_appoinment = Appoinment.objects.filter(Remark = 2).count()
+    total_Rejected_appoinment = Appoinment.objects.filter(Remark = 0).count()
     total_service = Service.objects.all().count()
     total_customer = Customer.objects.all().count()
     total_sales = Invoice.objects.values('Catagories__Cost').aggregate(Sum('Catagories__Cost'))
     today_sales = Invoice.objects.filter(Date__date=date.today()).aggregate(Sum('Catagories__Cost'))
     yesterday_sales = Invoice.objects.filter(Date__date=date.today()- timedelta(days=1)).aggregate(Sum('Catagories__Cost'))
     last_seven_days_sales = Invoice.objects.filter(Date__gte=date.today()- timedelta(days=7)).aggregate(Sum('Catagories__Cost'))
-    # .values('Catagories__Cost').aggregate(Sum('Catagories__Cost'))
-    print(today_sales)
-    # Invoice.objects.all().aggregate(Sum('Catagories.Cost'))
+
 
     context={
             'total_appoinment':total_appoinment,
@@ -59,6 +57,8 @@ def dashboard(request):
             
         }
     return render(request,'adminsection/dashboard.html',context)
+    
+
     
 def addservice(request):
 
@@ -148,17 +148,18 @@ def assignservices(request , id):
     Services=Service.objects.order_by('-TimeStamp')
 
     if request.method=='POST':
-        total_price=request.POST['total_price']
-        discount_price=request.POST['discount_price']
+        # total_price=request.POST['total_price']
+        # discount_price=request.POST['discount_price']
         serviceid= request.POST.getlist('serviceid')
         
-        if discount_price:
-            final_price=int(total_price)-int(discount_price)  
-            a1=Invoice(Note=final_price)
+        # if discount_price:
+        #     final_price=int(total_price)-int(discount_price)  
+        #     a1=Invoice(Note=final_price)
             
-        else:
-            a1=Invoice()
-            
+        # else:
+        #     a1=Invoice()
+
+        a1=Invoice()   
         a1.Customer=customer
         a1.save()
         for obj in serviceid:
@@ -246,9 +247,24 @@ def viewinvoice(request,id):
 
 
 def searchappointment(request):
+    appointment_list=''
+    query= request.GET.get('searchdata')
+    if query:
+        appointment_list=Appoinment.objects.all()
+        appointment_list= appointment_list.filter(
+            Q(AppointmentNumber__iexact=query) |
+            Q(Name__icontains=query) |
+            Q(Email__iexact=query)
+        ).distinct()
+     
+    context={
+
+            'appointment_list':appointment_list,
+            'query':query
+        }
 
     
-    return render(request,'adminsection/search-appointment.html')
+    return render(request,'adminsection/search-appointment.html',context)
     
 def searchinvoices(request):
 
@@ -257,13 +273,39 @@ def searchinvoices(request):
     invoice =Invoice.objects.filter(BillingNumber=query)
 
     context={
-        'invoice':invoice
+        'invoice':invoice,
+        'query':query
     }
     return render(request,'adminsection/search-invoices.html',context)
     
-   
+
+
 def bwdatesreportsds(request):
-    return render(request,'adminsection/bwdates-reports-ds.html')
+
+    
+    invoice_list=''
+    from_date= request.GET.get('from_date')
+    to_date= request.GET.get('to_date')
+
+
+
+    if from_date and to_date:
+
+        invoice_list =Invoice.objects.all() 
+        
+        invoice_list= invoice_list.filter(
+            Q(Date__gte=from_date),
+            Q(Date__lte=to_date)
+        ).distinct()
+
+    context={
+
+        'invoice_list':invoice_list,
+        'from_date':from_date,
+        'to_date':to_date
+    }
+
+    return render(request,'adminsection/bwdates-reports-ds.html',context)
     
 def salesreports(request):
     return render(request,'adminsection/sales-reports.html')

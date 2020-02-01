@@ -4,8 +4,8 @@ from adminsection import views
 
 
 urlpatterns = [
+    path('', views.dashboard, name='dashboard'),
     path('signin/', views.signin, name='signin'),
-    path('dashboard/', views.dashboard, name='dashboard'),
     path('service/', views.addservice, name='addservices'),
     path('manageservices/', views.manageservices, name='manageservices'),
     path('updateservice/<int:id>/', views.updateservice, name='updateservice'),

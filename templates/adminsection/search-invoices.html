@@ -14,55 +14,56 @@
 				<h4>Search Invoice:</h4>
 				<div class="form-body">
 					<form method="GET" name="search" action="">
-						<p style="font-size:16px; color:red" align="center"> <?php if($msg){
-</p>
 
-  
-							 <div class="form-group"> <label for="exampleInputEmail1">Search by Invoice Number or Billing Number</label> <input id="searchdata" type="text" name="searchdata" required="true" class="form-control">
-						
+
+						<div class="form-group"> <label for="exampleInputEmail1">Search by Invoice Number or Billing
+								Number</label> <input id="searchdata" type="text" name="searchdata" required="true"
+								class="form-control">
+
 							<br>
-							  <button type="submit" name="search" class="btn btn-primary btn-sm">Search</button> </form> 
-						</div>
-{% if invoice %}
-  <h4 align="center">Result against "{{ invoice.id }}" keyword </h4>
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th>#</th>
-										<th>Invoice Id</th>
-										<th>Customer Name</th>
-										<th>Invoice Date</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody>
-
-									{% for invoice in invoice %}
-									<tr>
-										<th scope="row"><?php echo $cnt;?></th>
-										<td>{{ invoice.BillingNumber }}</td>
-										<td>{{ invoice.Customer.Name }}</td>
-										<td>{{ invoice.Date }}</td>
-										<td><a
-												href="{% url 'viewinvoice' invoice.id %}">View</a>
-										</td>
-
-									</tr>
-									{% endfor %}
-									{% else %}	
-									<tr>
-										<td colspan="8"> No record found against this search</td>
-
-									</tr>
-									{% endif %}	
-								</tbody>
-							</table>
+							<button type="submit" name="search" class="btn btn-primary btn-sm">Search</button>
+					</form>
 				</div>
+				{% if invoice %}
+				<h4 align="center">Result against "{{ query }}" keyword </h4>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Invoice Id</th>
+							<th>Customer Name</th>
+							<th>Invoice Date</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						{% for invoice in invoice %}
+						<tr>
+							<th scope="row"><?php echo $cnt;?></th>
+							<td>{{ invoice.BillingNumber }}</td>
+							<td>{{ invoice.Customer.Name }}</td>
+							<td>{{ invoice.Date }}</td>
+							<td><a href="{% url 'viewinvoice' invoice.id %}">View</a>
+							</td>
+
+						</tr>
+						{% endfor %}
+						{% else %}
+						{% if query %}
+						<tr>
+							<td colspan="8"> No record found against this search</td>
+	
+						</tr>
+						{% endif %} 
+						{% endif %}
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
-	<!--footer-->
-	<?php include_once('includes/footer.php');?>
-	<!--//footer-->
+</div>
+<!--footer-->
+<!--//footer-->
 </div>
 {% endblock %}

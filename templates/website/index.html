@@ -1,0 +1,193 @@
+{% extends 'website/base.html' %}
+{% load static %}
+{% block content %}
+
+<section id="home-section" class="hero" style="background-image: url({% static 'images/bg.jpg' %});"
+	data-stellar-background-ratio="0.5">
+	<div class="home-slider owl-carousel">
+		<div class="slider-item js-fullheight">
+			<div class="overlay"></div>
+			<div class="container-fluid p-0">
+				<div class="row d-md-flex no-gutters slider-text align-items-end justify-content-end"
+					data-scrollax-parent="true">
+					<img class="one-third align-self-end order-md-last img-fluid" src="{% static 'images/bg_1.png' %}"
+						alt="">
+					Beauty Parlour <div class="one-forth d-flex align-items-center ftco-animate"
+						data-scrollax=" properties: { translateY: '70%' }">
+						<div class="text mt-5">
+							<span class="subheading">Beauty Parlour</span>
+							<h1 class="mb-4">Get Pretty Look</h1>
+							<p class="mb-4">We pride ourselves on our high quality work and attention to detail. The
+								products we use are of top quality branded products.</p>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="slider-item js-fullheight">
+			<div class="overlay"></div>
+			<div class="container-fluid p-0">
+				<div class="row d-flex no-gutters slider-text align-items-center justify-content-end"
+					data-scrollax-parent="true">
+					<img class="one-third align-self-end order-md-last img-fluid" src="{% static 'images/bg_2.png' %}"
+						alt="">
+					<div class="one-forth d-flex align-items-center ftco-animate"
+						data-scrollax=" properties: { translateY: '70%' }">
+						<div class="text mt-5">
+							<span class="subheading">Natural Beauty</span>
+							<h1 class="mb-4">Beauty Salon</h1>
+							<p class="mb-4">This parlour provides huge facilities with advanced technology equipments
+								and best quality service. Here we offer best treatment that you might have never
+								experienced before.</p>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="form">
+	<br>
+	<section class="ftco-section ftco-no-pt ftco-booking">
+		<div class="container-fluid px-0">
+			<div class="row no-gutters d-md-flex justify-content-end">
+				<div class="one-forth d-flex align-items-end">
+					<div class="text">
+						<div class="overlay"></div>
+						<div class="appointment-wrap">
+							<span class="subheading">Reservation</span>
+							<h3 class="mb-2">Make an Appointment</h3>
+							{% if form.errors %}
+							{% for field in form %}
+							{% for error in field.errors %}
+							<div class="alert alert-danger alert-dismissable">
+								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+								<strong>{{ error|escape }}</strong>
+							</div>
+							{% endfor %}
+							{% endfor %}
+							{% for error in form.non_field_errors %}
+							<div class="alert alert-danger alert-dismissable">
+								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+								<strong>{{ error|escape }}</strong>
+							</div>
+							{% endfor %}
+							{% endif %}
+							<form action="" method="POST" class="appointment-form">
+								{% csrf_token %}
+
+								<div class="row">
+									{% for field in form %}
+									{% if field.name == 'Service' %}
+
+									<div class="col-sm-12">
+										<div class="form-group">
+											<div class="select-wrap">
+													<!-- <div id="output"></div> -->
+												<!-- <div class="icon"><span class="ion-ios-arrow-down"></span></div> -->
+												
+												<select name="Service" id="Service" required="true" data-placeholder="Choose tags ..." multiple
+												class="form-control" multiple >
+												
+													<option value="">Select Services</option>
+													{% for service in services %}
+													<option value="{{ service.id }}">
+														{{ service.ServiceName }}
+													</option>
+													{% endfor %}
+												</select>
+											</div>
+										</div>
+									</div>
+									{% else %}
+									<div class="col-sm-12">
+										<div class="form-group">
+											<input type="{{ field.field.widget.input_type }}"
+												class="form-control {{ field.field.widget.attrs.class }}"
+												name="{{ field.name }}" id="id_{{ field.name }}"
+												placeholder="{{ field.field.widget.attrs.placeholder }}"
+												required="true">
+
+										</div>
+									</div>
+									{% endif %}
+									{% endfor %}
+	
+									<!-- <div class="col-sm-12">
+									<div class="form-group">
+										<input type="email" class="form-control" id="appointment_email"
+											placeholder="Email" name="email" required="true">
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="form-group">
+										<div class="select-wrap">
+											<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+											<select name="services" id="services" required="true" class="form-control">
+												<option value="">Select Services</option>
+	
+												<option value="">
+													</option>
+											
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="form-group">
+										<input type="text" class="form-control appointment_date" placeholder="Date"
+											name="adate" id='adate' required="true">
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="form-group">
+										<input type="text" class="form-control appointment_time" placeholder="Time"
+											name="atime" id='atime' required="true">
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="form-group">
+										<input type="text" class="form-control" id="phone" name="phone"
+											placeholder="Phone" required="true" maxlength="10" pattern="[0-9]+">
+									</div>
+								</div> -->
+								<div class="col-sm-12">
+									<div class="form-group">
+										<input type="text" class="form-control appointment_date" placeholder="Date"
+											name="adate" id='adate' required="true">
+									</div>
+								</div>
+								</div>
+								<div class="form-group">
+									<input type="submit" name="submit" value="Make an Appointment"
+										class="btn btn-primary">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="one-third">
+					<div class="img" style="background-image: url({% static 'images/bg-1.jpg' %});">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<br>
+
+
+	<!-- loader -->
+	<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+			<circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+			<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+				stroke="#F96D00" /></svg></div>
+
+
+{% endblock %}
