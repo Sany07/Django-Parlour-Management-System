@@ -21,9 +21,9 @@ def home(request):
             instance.save()
             form.save_m2m()
          
-            return redirect(reverse("thankyou" ,kwargs={
-                    'id':form.instance.id
-        }))
+            return redirect(reverse("thankyou", kwargs={
+                'id': form.instance.id
+            }))
 
     context={
  

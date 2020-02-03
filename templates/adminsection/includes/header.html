@@ -32,9 +32,9 @@
             
                    <div class="notification_desc">
 
-                 <a class="dropdown-item" href="view-appointment.php?viewid=<?php echo $result['ID'];?>">New appointment received from <?php echo $result['Name'];?> </a><br />
+                 <a class="dropdown-item" href="">New appointment received from <?php echo $result['Name'];?> </a><br />
 
-    <a class="dropdown-item" href="all-appointment.php">No New Appointment Received</a>
+    <a class="dropdown-item" href="">No New Appointment Received</a>
       
                   </div>
                   <div class="clearfix"></div>  
@@ -43,7 +43,7 @@
                 
                  <li>
                   <div class="notification_bottom">
-                    <a href="new-appointment.php">See all notifications</a>
+                    <a href="">See all notifications</a>
                   </div> 
                 </li>
               </ul>
@@ -76,9 +76,9 @@
                 {% endif %}
               </a>
               <ul class="dropdown-menu drp-mnu">
-                <li> <a href="change-password.php"><i class="fa fa-cog"></i> Settings</a> </li> 
-                <li> <a href="admin-profile.php"><i class="fa fa-user"></i> Profile</a> </li> 
-                <li> <a href="index.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
+                <li> <a href="{% url 'changepassword' %}"><i class="fa fa-cog"></i> Settings</a> </li> 
+                <li> <a href="{% url 'adminprofile' %}"><i class="fa fa-user"></i> Profile</a> </li> 
+                <li> <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> Logout</a> </li>
               </ul>
             </li>
           </ul>

@@ -1,80 +1,90 @@
+
+
+{% if request.user.is_authenticated %}
+
+
+
 <div class=" sidebar" role="navigation">
   <div class="navbar-collapse">
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
 <ul class="nav" id="side-menu">
   <li>
     <a href="{% url 'dashboard' %}"><i class="fa fa-home nav_icon"></i>Dashboard</a>
-  </li>
-  <li>
-    <a data-toggle="collapse" href="#collapseServices" role="button" aria-expanded="false"><i class="fa fa-cogs nav_icon"></i>Services<span class="fa arrow"></span> </a>
-    <ul class="nav nav-second-level collapse" id="collapseServices">
-      <li>
-        <a href="{% url 'addservices' %}">Add Services</a>
-      </li>
-      <li>
-        <a href="{% url 'manageservices' %}">Manage Services</a>
-      </li>
-    </ul>
-    <!-- /nav-second-level -->
-  </li>
-  <li class="">
-    <a data-toggle="collapse" href="#collapsePage" role="button" aria-expanded="false"><i class="fa fa-book nav_icon"></i>Pages <span class="fa arrow"></span></a>
-    <ul class="nav nav-second-level collapse" id="collapsePage">
-      <li>
-        <a href="about-us.php">About Us</a>
-      </li>
-      <li>
-        <a href="contact-us.php">Contact Us</a>
-      </li>
-    </ul>
-    <!-- /nav-second-level -->
-  </li>
-
-  <li>
-    <a data-toggle="collapse" href="#collapseAppointment" role="button" aria-expanded="false"><i class="fa fa-check-square-o nav_icon"></i>Appointment<span class="fa arrow"></span></a>
-    <ul class="nav nav-second-level collapse" id="collapseAppointment">
-      <li>
-        <a href="{% url 'allappointment' %}">All Appointment</a>
-      </li>
-      <li>
-        <a href="{% url 'newappointment' %}">New Appointment</a>
-      </li>
-      <li>
-        <a href="{% url 'acceptedappointment' %}">Accepted Appointment</a>
-      </li>
-      <li>
-        <a href="{% url 'rejectedappointment' %}">Rejected Appointment</a>
-      </li>
-    </ul>
-    <!-- //nav-second-level -->
-  </li>
- 
-
-  <li>
-    <a href="{% url 'addcustomer' %}" class="chart-nav"><i class="fa fa-user nav_icon"></i>Add Customer</a>
-  </li>
-   <li>
-    <a href="{% url 'customerlist' %}" class="chart-nav"><i class="fa fa-users nav_icon"></i>Customer List</a>
-  </li>
+</li>
+<li>
+  <a data-toggle="collapse" href="#collapseServices" role="button" aria-expanded="false"><i
+      class="fa fa-cogs nav_icon"></i>Services<span class="fa arrow"></span> </a>
+  <ul class="nav nav-second-level collapse" id="collapseServices">
     <li>
-    <a data-toggle="collapse" href="#collapseReports" role="button" aria-expanded="false"><i class="fa fa-check-square-o nav_icon"></i>Reports<span class="fa arrow"></span></a>
-    <ul class="nav nav-second-level collapse" id="collapseReports">
-       <li><a href="{% url 'bwdatesreportsds' %}"> B/w dates</a></li>
-         
-          <li><a href="{% url 'salesreports' %}">Sales Reports</a></li>
-    </ul>
-    <!-- //nav-second-level -->
-  </li>
+      <a href="{% url 'addservices' %}">Add Services</a>
+    </li>
+    <li>
+      <a href="{% url 'manageservices' %}">Manage Services</a>
+    </li>
+  </ul>
+  <!-- /nav-second-level -->
+</li>
+<li class="">
+  <a data-toggle="collapse" href="#collapsePage" role="button" aria-expanded="false"><i
+      class="fa fa-book nav_icon"></i>Pages <span class="fa arrow"></span></a>
+  <ul class="nav nav-second-level collapse" id="collapsePage">
+    <li>
+      <a href="about-us.php">About Us</a>
+    </li>
+    <li>
+      <a href="contact-us.php">Contact Us</a>
+    </li>
+  </ul>
+  <!-- /nav-second-level -->
+</li>
 
 <li>
-    <a href="{% url 'invoices' %}" class="chart-nav"><i class="fa fa-file-text-o nav_icon"></i>Invoices</a>
-  </li>
-  <li>
-    <a href="{% url 'searchappointment' %}" class="chart-nav"><i class="fa fa-search nav_icon"></i>Search Appointment</a>
-  </li>
-  <li>
-    <a href="{% url 'searchinvoices' %}" class="chart-nav"><i class="fa fa-search nav_icon"></i>Search Invoice</a>
-  </li>
+  <a data-toggle="collapse" href="#collapseAppointment" role="button" aria-expanded="false"><i
+      class="fa fa-check-square-o nav_icon"></i>Appointment<span class="fa arrow"></span></a>
+  <ul class="nav nav-second-level collapse" id="collapseAppointment">
+    <li>
+      <a href="{% url 'allappointment' %}">All Appointment</a>
+    </li>
+    <li>
+      <a href="{% url 'newappointment' %}">New Appointment</a>
+    </li>
+    <li>
+      <a href="{% url 'acceptedappointment' %}">Accepted Appointment</a>
+    </li>
+    <li>
+      <a href="{% url 'rejectedappointment' %}">Rejected Appointment</a>
+    </li>
+  </ul>
+  <!-- //nav-second-level -->
+</li>
+
+
+<li>
+  <a href="{% url 'addcustomer' %}" class="chart-nav"><i class="fa fa-user nav_icon"></i>Add Customer</a>
+</li>
+<li>
+  <a href="{% url 'customerlist' %}" class="chart-nav"><i class="fa fa-users nav_icon"></i>Customer List</a>
+</li>
+<li>
+  <a data-toggle="collapse" href="#collapseReports" role="button" aria-expanded="false"><i
+      class="fa fa-check-square-o nav_icon"></i>Reports<span class="fa arrow"></span></a>
+  <ul class="nav nav-second-level collapse" id="collapseReports">
+    <li><a href="{% url 'bwdatesreportsds' %}"> B/w dates</a></li>
+
+    <li><a href="{% url 'salesreports' %}">Sales Reports</a></li>
+  </ul>
+  <!-- //nav-second-level -->
+</li>
+
+<li>
+  <a href="{% url 'invoices' %}" class="chart-nav"><i class="fa fa-file-text-o nav_icon"></i>Invoices</a>
+</li>
+<li>
+  <a href="{% url 'searchappointment' %}" class="chart-nav"><i class="fa fa-search nav_icon"></i>Search Appointment</a>
+</li>
+<li>
+  <a href="{% url 'searchinvoices' %}" class="chart-nav"><i class="fa fa-search nav_icon"></i>Search Invoice</a>
+</li>
 
 
 </ul>
@@ -83,3 +93,5 @@
 </nav>
 </div>
 </div>
+
+{% endif %}
