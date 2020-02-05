@@ -15,3 +15,8 @@ Or simply download using the url below :
 Requirements :
 
      pip install -r requirements.txt
+     
+To migrate the database open terminal in project directory and type
+
+    python manage.py makemigrations
+    python manage.py migrate
