@@ -4,13 +4,14 @@
 
 # Installing:
 
-open terminal and type
+Open terminal and type
 
     > git clone git@github.com:Sany07/Django-Parlour-Management-System.git
 
-or simply download using the url below
+Or simply download using the url below :
 
     > https://github.com/Sany07/Django-Parlour-Management-System.git
   
-  
+Requirements :
+
     > pip install -r requirements.txt
