@@ -14,7 +14,6 @@ urlpatterns = [
     path('editcustomer/<int:id>/', views.editcustomer, name='editcustomer'),
     path('assignservices/<int:id>/', views.assignservices, name='assignservices'),
     path('bwdatesreportsds/', views.bwdatesreportsds, name='bwdatesreportsds'),
-    path('salesreports/', views.salesreports, name='salesreports'),
     path('allappointment/', views.allappointment, name='allappointment'),
     path('viewappointment/<int:id>/', views.viewappointment, name='viewappointment'),
     path('newappointment/', views.newappointment, name='newappointment'),
@@ -29,7 +28,5 @@ urlpatterns = [
     path('forgetpassword/', views.forgetpassword, name='forgetpassword'),
     path('contactus/', views.contactus, name='contactus'),
     path('logout/', views.logout, name='logout'),
-    # path('allappointment/', views.allappointment, name='allappointment'),
-    # path('newappointment/', views.newappointment, name='addservices'),
-    # path('acceptedappointment/', views.acceptedappointment, name='acceptedappointment'),
+
 ]

@@ -5,8 +5,8 @@
         <!--toggle button end-->
         <!--logo -->
         <div class="logo">
-          <a href="index.html">
-            <h1>BPMS</h1>
+          <a href="{% url 'dashboard' %}">
+            <h1>MS</h1>
             <span>AdminPanel</span>
           </a>
         </div>
@@ -25,7 +25,7 @@
               <ul class="dropdown-menu">
                 <li>
                   <div class="notification_header">
-                    <h3>You have <?php echo $num;?> new notification</h3>
+                    <h3>You have  new notification</h3>
                   </div>
                 </li>
                 <li>
@@ -34,7 +34,7 @@
 
                  <a class="dropdown-item" href="">New appointment received from <?php echo $result['Name'];?> </a><br />
 
-    <a class="dropdown-item" href="">No New Appointment Received</a>
+                <a class="dropdown-item" href="">No New Appointment Received</a>
       
                   </div>
                   <div class="clearfix"></div>  

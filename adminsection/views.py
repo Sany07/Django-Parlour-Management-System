@@ -14,7 +14,9 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 
 def signin(request):
-
+    """
+        LogIn page for Admin/Staff
+    """ 
     form = LoginForm(request.POST or None)
 
     if request.user.is_authenticated:
@@ -34,7 +36,9 @@ def signin(request):
 
 @staff_member_required
 def dashboard(request):
-
+    """
+        Adminsection Dashboard.
+    """ 
     total_appoinment = Appoinment.objects.all().count()
     total_accepted_appoinment = Appoinment.objects.filter(Remark=1).count()
     total_Rejected_appoinment = Appoinment.objects.filter(Remark=0).count()
@@ -66,7 +70,9 @@ def dashboard(request):
 
 @staff_member_required
 def addservice(request):
-
+    """
+        Admin can add Service and Price.
+    """ 
     form = AddServiceForm(request.POST or None)
 
     if request.method == 'POST':
@@ -82,7 +88,9 @@ def addservice(request):
 
 @staff_member_required
 def manageservices(request):
-
+    """
+        Admin can check the service list.
+    """ 
     Services = Service.objects.order_by('-TimeStamp')
 
     context = {
@@ -93,7 +101,9 @@ def manageservices(request):
 
 @staff_member_required
 def updateservice(request, id):
-
+    """
+        Admin can update any service.
+    """ 
     service = get_object_or_404(Service, id=id)
     form = AddServiceForm(request.POST or None, instance=service)
 
@@ -110,7 +120,9 @@ def updateservice(request, id):
 
 @staff_member_required
 def addcustomer(request):
-
+    """
+        Admin can add customer details.
+    """ 
     form = AddCustomerForm(request.POST or None)
 
     if request.method == 'POST':
@@ -126,6 +138,9 @@ def addcustomer(request):
 
 @staff_member_required
 def customerlist(request):
+    """
+        Customer list.
+    """ 
 
     CustomerList = Customer.objects.order_by('-CreateDate')
 
@@ -137,6 +152,9 @@ def customerlist(request):
 
 @staff_member_required
 def editcustomer(request, id):
+    """
+        Edit customer details.
+    """ 
 
     customer = get_object_or_404(Customer, id=id)
     form = AddCustomerForm(request.POST or None, instance=customer)
@@ -154,6 +172,9 @@ def editcustomer(request, id):
 
 @staff_member_required
 def assignservices(request, id):
+    """
+       Can assign services for  Customer.
+    """ 
 
     customer = get_object_or_404(Customer, id=id)
     Services = Service.objects.order_by('-TimeStamp')
@@ -189,6 +210,10 @@ def assignservices(request, id):
 
 @staff_member_required
 def allappointment(request):
+
+    """
+        Appointment Lists.
+    """ 
     Appoinments = Appoinment.objects.order_by('-ApplyDate')
     context = {
         'Appoinments': Appoinments
@@ -198,6 +223,9 @@ def allappointment(request):
 
 @staff_member_required
 def viewappointment(request, id):
+    """
+        View appointment.
+    """ 
 
     Appoinments = get_object_or_404(Appoinment, id=id)
     form = AppoinmentUpdateForm(request.POST or None, instance=Appoinments)
@@ -215,6 +243,9 @@ def viewappointment(request, id):
 
 @staff_member_required
 def newappointment(request):
+    """
+        New appointments list.
+    """ 
 
     Acceptedappoinments = Appoinment.objects.filter(Remark='')
     context = {
@@ -225,6 +256,9 @@ def newappointment(request):
 
 @staff_member_required
 def acceptedappointment(request):
+    """
+        Accepted appointments list.
+    """ 
 
     Acceptedappoinments = Appoinment.objects.filter(Remark=1)
 
@@ -236,6 +270,9 @@ def acceptedappointment(request):
 
 @staff_member_required
 def rejectedappointment(request):
+    """
+        Rejected appointments.
+    """ 
     Rejectedtedappoinments = Appoinment.objects.filter(Remark=0)
 
     context = {
@@ -246,6 +283,9 @@ def rejectedappointment(request):
 
 @staff_member_required
 def invoices(request):
+    """
+        Invoice lists.
+    """ 
 
     invoices = Invoice.objects.order_by('-id')
 
@@ -257,6 +297,10 @@ def invoices(request):
 
 @staff_member_required
 def viewinvoice(request, id):
+    """
+        view Invoice .
+    """ 
+
     invoice = get_object_or_404(Invoice, id=id)
     total = Invoice.objects.filter(id=id).aggregate(Sum('Catagories__Cost'))
 
@@ -325,25 +369,6 @@ def bwdatesreportsds(request):
     }
 
     return render(request, 'adminsection/bwdates-reports-ds.html', context)
-
-
-@staff_member_required
-def salesreports(request):
-
-    invoice_list = Invoice.objects.all()
-
-    invoice_list = invoice_list.filter(
-        Q(Date__gte=from_date),
-        Q(Date__lte=to_date)
-    ).values('Catagories__Cost').aggregate(Sum('Catagories__Cost'))
-
-    context = {
-
-        'invoice_list': invoice_list,
-        'from_date': from_date,
-        'to_date': to_date
-    }
-    return render(request, 'adminsection/sales-reports.html')
 
 
 @staff_member_required
